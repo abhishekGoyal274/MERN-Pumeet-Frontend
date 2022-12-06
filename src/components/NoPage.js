@@ -1,3 +1,4 @@
+import "../index.css"
 const NoPage = () => {
   return (
     <div class="mainbox">

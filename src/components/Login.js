@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../form.css";
-import { useContext } from "react";
-import {UserData} from "./UserData";
 import { loginAdmin, loginStudent, loginSubAdmin } from "../api";
 
 const Login = () => {
   const [inputs, setInputs] = useState({});
   const [User, setUser] = useState("Student");
   const navigate = useNavigate();
-  const userData = useContext(UserData);
 
   function handleValidation() {
     let fields = inputs;
@@ -61,9 +58,7 @@ const Login = () => {
             break;
           default:
             break;
-        }
-        userData.setUser(data?.data)
-        
+        }        
         console.log("login")
         console.log(data.data)
 

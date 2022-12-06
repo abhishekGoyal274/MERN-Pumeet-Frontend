@@ -1,8 +1,5 @@
-import { useContext } from "react";
-import { UserData } from "./UserData";
 import { useNavigate } from "react-router-dom";
 import "../form.css";
-import { loginAdmin } from "../api";
 
 function User() {
 //   const user = useContext(UserData);

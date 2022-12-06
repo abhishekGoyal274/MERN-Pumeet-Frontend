@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../form.css";
-
 import { registerStudent, registerSubAdmin } from "../api";
 
 const Register = () => {
   const [inputs, setInputs] = useState({});
   const [User, setUser] = useState("Student");
+  
   const navigate = useNavigate();
   function handleValidation() {
     let fields = inputs;
