@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = axios.create({baseURL: "https://pu-meet.onrender.com"});
+const api = axios.create({baseURL: "https://pu-meet-api.onrender.com"});
 
 export const registerStudent = (formData) => api.post("/register/student", formData);
 export const registerSubAdmin = (formData) => api.post("/register/subAdmin", formData);
