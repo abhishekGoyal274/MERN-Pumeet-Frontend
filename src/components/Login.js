@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../form.css";
@@ -7,6 +7,7 @@ import { loginAdmin, loginStudent, loginSubAdmin } from "../api";
 const Login = () => {
   const [inputs, setInputs] = useState({});
   const [User, setUser] = useState("Student");
+  const [login, setLogin] = useState("Login");
   const navigate = useNavigate();
 
   function handleValidation() {
@@ -58,15 +59,15 @@ const Login = () => {
             break;
           default:
             break;
-        }        
-        console.log("login")
-        console.log(data.data)
-
-        localStorage.setItem('user',JSON.stringify(data?.data));
+        }
+        console.log("login");
+        console.log(data.data);
+        localStorage.setItem("user", JSON.stringify(data?.data));
+        setLogin("Login");
         navigate("/User");
-      } 
-      catch (err) {
+      } catch (err) {
         alert(err.response.data.message);
+        setLogin("Login");
         console.log(err);
       }
     } else {
@@ -77,6 +78,7 @@ const Login = () => {
           "\nPassword: " +
           returns[1].password
       );
+      setLogin("Login");
     }
   };
 
@@ -136,14 +138,15 @@ const Login = () => {
             <button
               className="waves-effect waves-light btn center-align white-text text-darken-2 card-panel indigo darken-4  z-depth-1"
               onClick={(event) => {
+                setLogin("Loading");
                 handleSubmit(event);
               }}
             >
-              LOGIN
+              {login}
             </button>
             <span className="privacy-policy">
               <Link style={{ color: "Blue" }} to="/register">
-                <h6>Register</h6>
+                Register
               </Link>
               You agree to our Terms and Policy.
             </span>
