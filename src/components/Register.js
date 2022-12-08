@@ -6,6 +6,7 @@ import { registerStudent, registerSubAdmin } from "../api";
 const Register = () => {
   const [inputs, setInputs] = useState({});
   const [User, setUser] = useState("Student");
+  const [register,setLRegister] = useState("Register")
   
   const navigate = useNavigate();
   function handleValidation() {
@@ -73,14 +74,14 @@ const Register = () => {
       }
     }
     else{
-      //Roll Number
+      //Department
       errors["department"] = "ok";
       if (!fields["department"]) {
         formIsValid = false;
         errors["department"] = "Cannot be empty";
       }
 
-      //Varifcation data
+      //Refrence number
       errors["reference_no"] = "ok";
       if (!fields["reference_no"]) {
         formIsValid = false;
@@ -98,7 +99,7 @@ const Register = () => {
   const handleUser = (event) => {
     setUser(event.target.value);
   };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const [formIsValid, errors] = handleValidation();
@@ -107,20 +108,25 @@ const Register = () => {
       if (User === "Student") {
         try {
           res = await registerStudent(inputs);
+          setLRegister("Register")
           navigate("/Login");
         } catch (err) {
+          setLRegister("Register")
           alert("Username: " + err.response.data.message);
         }
       } else {
         try {
           res = await registerSubAdmin(inputs);
+          setLRegister("Register")
           navigate("/Login");
         } catch (err) {
+          setLRegister("Register")
           alert("Username: " + err.response.data.message);
         }
       }
     } else {
       for (const property in errors) {
+        setLRegister("Register")
         if (errors[property] == "ok")
           console.log(`${property}: ${errors[property]}`);
         else alert("Error: " + property + " " + errors[property]);
@@ -137,7 +143,7 @@ const Register = () => {
           </div>
           <div className="inner-wrap">
             <label>
-              Roll No
+              Roll No *
               <input
                 type="text"
                 name="roll_no"
@@ -159,7 +165,7 @@ const Register = () => {
               />
             </label>
             <label>
-              Verification Data
+              Verification Data *
               <input
                 type="text"
                 name="ver_data"
@@ -180,7 +186,7 @@ const Register = () => {
           </div>
           <div className="inner-wrap">
             <label>
-              department
+              department *
               <input
                 type="text"
                 name="department"
@@ -191,7 +197,7 @@ const Register = () => {
               />
             </label>
             <label>
-              Reference No
+              Reference No *
               <input
                 type="text"
                 name="reference_no"
@@ -238,7 +244,7 @@ const Register = () => {
           </div>
           <div className="inner-wrap">
             <label>
-              Name
+              Name *
               <input
                 type="text"
                 name="name"
@@ -249,7 +255,7 @@ const Register = () => {
               />
             </label>
             <label>
-              Email
+              Email *
               <input
                 type="email"
                 name="email"
@@ -294,7 +300,7 @@ const Register = () => {
           </div>
           <div className="inner-wrap">
             <label>
-              username
+              username *
               <input
                 type="text"
                 name="username"
@@ -305,7 +311,7 @@ const Register = () => {
               />
             </label>
             <label>
-              password
+              password *
               <input
                 type="password"
                 name="password"
@@ -323,10 +329,11 @@ const Register = () => {
             <button
               className="waves-effect waves-light btn center-align white-text text-darken-2 card-panel indigo darken-4  z-depth-1"
               onClick={(event) => {
+                setLRegister("loading")
                 handleSubmit(event);
               }}
             >
-              Register
+              {register}
             </button>
             <span className="privacy-policy">
               You agree to our Terms and Policy.
