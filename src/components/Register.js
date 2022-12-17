@@ -6,7 +6,7 @@ import { registerStudent, registerSubAdmin } from "../api";
 const Register = () => {
   const [inputs, setInputs] = useState({});
   const [User, setUser] = useState("Student");
-  const [register,setLRegister] = useState("Register")
+  const [register,setLRegister] = useState(false)
   
   const navigate = useNavigate();
   function handleValidation() {
@@ -108,25 +108,25 @@ const Register = () => {
       if (User === "Student") {
         try {
           res = await registerStudent(inputs);
-          setLRegister("Register")
+          setLRegister(false)
           navigate("/Login");
         } catch (err) {
-          setLRegister("Register")
+          setLRegister(false)
           alert("Username: " + err.response.data.message);
         }
       } else {
         try {
           res = await registerSubAdmin(inputs);
-          setLRegister("Register")
+          setLRegister(false)
           navigate("/Login");
         } catch (err) {
-          setLRegister("Register")
+          setLRegister(false)
           alert("Username: " + err.response.data.message);
         }
       }
     } else {
       for (const property in errors) {
-        setLRegister("Register")
+        setLRegister(false)
         if (errors[property] == "ok")
           console.log(`${property}: ${errors[property]}`);
         else alert("Error: " + property + " " + errors[property]);
@@ -329,11 +329,20 @@ const Register = () => {
             <button
               className="waves-effect waves-light btn center-align white-text text-darken-2 card-panel indigo darken-4  z-depth-1"
               onClick={(event) => {
-                setLRegister("loading")
+                setLRegister(true)
                 handleSubmit(event);
               }}
             >
-              {register}
+              {register ? (
+                <div class="lds-ring">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              ) : (
+                <>Register</>
+              )}
             </button>
             <span className="privacy-policy">
               You agree to our Terms and Policy.

@@ -2,33 +2,28 @@ import { useNavigate } from "react-router-dom";
 import "../form.css";
 
 function User() {
-//   const user = useContext(UserData);
-//   console.log("user")
-//   console.log(user)
   const navigate = useNavigate();
-//   console.log("in users:");
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
   console.log(user);
 
-
   const handleLogout = () => {
-    localStorage.setItem('user',JSON.stringify({"empty":true}));
+    localStorage.setItem("user", JSON.stringify({ empty: true }));
     navigate("/Login");
   };
 
   function whichUser() {
-    if(user.empty) {
-        return (
-          <>
-            <table
-              class="styled-table"
-              style={{ marginLeft: "10vw", width: "80vw", textAlign: "center" }}
-            >
-              Not Logged in
-            </table>
-          </>
-        );
-      }
+    if (user.empty) {
+      return (
+        <>
+          <table
+            class="styled-table"
+            style={{ marginLeft: "10vw", width: "80vw", textAlign: "center" }}
+          >
+            Not Logged in
+          </table>
+        </>
+      );
+    }
     if (user.rollNumber !== undefined) {
       return (
         <>
@@ -129,7 +124,7 @@ function User() {
                 <th>Requests</th>
                 <th>Student</th>
               </tr>
-              {(user.studentRequests).map((student, i) => (
+              {user.studentRequests.map((student, i) => (
                 <tr>
                   <th>{student.username}</th>
                   <th> {student.verificationData}</th>
@@ -148,11 +143,11 @@ function User() {
               </tr>
             </thead>
             <tbody>
-              <tr>  
+              <tr>
                 <th>Requests</th>
                 <th>Sub Admin</th>
               </tr>
-              {(user.subAdminRequests).map((subAdmin, i) => (
+              {user.subAdminRequests.map((subAdmin, i) => (
                 <tr>
                   <th>{subAdmin.username}</th>
                   <th> {subAdmin.referenceNumber}</th>
@@ -162,7 +157,7 @@ function User() {
           </table>
         </>
       );
-    } 
+    }
   }
   return (
     <>

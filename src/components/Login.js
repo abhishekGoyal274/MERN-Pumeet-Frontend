@@ -7,7 +7,7 @@ import { loginAdmin, loginStudent, loginSubAdmin } from "../api";
 const Login = () => {
   const [inputs, setInputs] = useState({});
   const [User, setUser] = useState("Student");
-  const [login, setLogin] = useState("Login");
+  const [login, setLogin] = useState(false);
   const navigate = useNavigate();
 
   function handleValidation() {
@@ -60,14 +60,14 @@ const Login = () => {
           default:
             break;
         }
-        console.log("login");
+        console.log(false);
         console.log(data.data);
         localStorage.setItem("user", JSON.stringify(data?.data));
-        setLogin("Login");
+        setLogin(false);
         navigate("/User");
       } catch (err) {
         alert(err.response.data.message);
-        setLogin("Login");
+        setLogin(false);
         console.log(err);
       }
     } else {
@@ -78,7 +78,7 @@ const Login = () => {
           "\nPassword: " +
           returns[1].password
       );
-      setLogin("Login");
+      setLogin(false);
     }
   };
 
@@ -138,15 +138,24 @@ const Login = () => {
             <button
               className="waves-effect waves-light btn center-align white-text text-darken-2 card-panel indigo darken-4  z-depth-1"
               onClick={(event) => {
-                setLogin("Loading");
+                setLogin(true);
                 handleSubmit(event);
               }}
             >
-              {login}
+              {login ? (
+                <div class="lds-ring">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              ) : (
+                <>Login</>
+              )}
             </button>
             <span className="privacy-policy">
               <Link style={{ color: "Blue" }} to="/register">
-                Register
+                <h6>Register</h6>
               </Link>
               You agree to our Terms and Policy.
             </span>
