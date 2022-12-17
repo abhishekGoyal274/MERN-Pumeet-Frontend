@@ -3,8 +3,11 @@ import "../form.css";
 
 function User() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
+  let user;
+  user = JSON.parse(localStorage.getItem("user"));
+  if (user == null) {
+    localStorage.setItem("user", JSON.stringify({ empty: true }));
+  }
 
   const handleLogout = () => {
     localStorage.setItem("user", JSON.stringify({ empty: true }));
